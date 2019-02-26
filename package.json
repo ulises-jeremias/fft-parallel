@@ -1,0 +1,12 @@
+{
+  "name": "fft",
+  "version": "1.0.0",
+  "repo": "ulises-jeremias/fft-parallel",
+  "description": "A pure C implementations of FFT Algorithms",
+  "keywords": [],
+  "license": "MIT",
+  "install": "./install.sh",
+  "development": {
+    "ScientificC/errno": "1.0.0"
+  }
+}
