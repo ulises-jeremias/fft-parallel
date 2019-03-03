@@ -2,7 +2,8 @@ INCLUDE_DIRECTORIES(../.)
 INCLUDE_DIRECTORIES(../include)
 
 SET(FFT_SUBDIRS
-	fft
+	util
+	serial
 )
 
 IF(NOT CMAKE_BUILD_TYPE)
