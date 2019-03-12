@@ -14,9 +14,9 @@ test_result[32] = {
 };
 
 int
-run_dtf_tests()
+run_fft_tests()
 {
-        CATEGORY_BEGIN(DFT)
+        CATEGORY_BEGIN(FFT)
         {
                 TEST_BEGIN(Naive definition)
                 {
@@ -30,8 +30,8 @@ run_dtf_tests()
                                 input[i] = ((double) i) + 0.0 * I;
                         }
                         
-                        /* Do DFT */
-                        result = scic_dft_naive(input, 30);
+                        /* Do FFT */
+                        result = scic_fft_pfa(input, 30, 2, 15);
                         
                         printf("\n\n");
 
@@ -54,7 +54,7 @@ main()
 {
         clock_t cl = clock();
 
-        run_dtf_tests();
+        run_fft_tests();
 
         (cml_count_failedtests > 0) ?
         printf(RED) :
