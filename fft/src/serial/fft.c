@@ -21,17 +21,19 @@ extern double complex complex_polar(double r, double theta);
 double complex *
 scic_fft_pfa(double complex *input, size_t N, size_t N1, size_t N2)
 {
+        double complex **columns, **rows, *output;
         size_t k1, k2, z;
 
         /* Allocate columnwise matrix */
-        double complex  **columns = (double complex **) malloc(sizeof(double complex *) * N1);
+        columns = (double complex **) malloc(sizeof(double complex *) * N1);
+
         for (k1 = 0; k1 < N1; k1++)
         {
                 columns[k1] = (double complex *) malloc(sizeof(double complex) * N2);
         }
         
         /* Allocate rowwise matrix */
-        double complex  **rows = (double complex **) malloc(sizeof(double complex *) * N2);
+        rows = (double complex **) malloc(sizeof(double complex *) * N2);
 
         for (k2 = 0; k2 < N2; k2++)
         {
@@ -68,7 +70,7 @@ scic_fft_pfa(double complex *input, size_t N, size_t N1, size_t N2)
         }
         
         /* Flatten into single output (Using chinese remainder theorem) */
-        double complex *output = (double complex *) malloc(sizeof(double complex) * N);
+        output = (double complex *) malloc(sizeof(double complex) * N);
         
         for (k1 = 0; k1 < N1; k1++)
         {
@@ -113,10 +115,11 @@ scic_fft_pfa(double complex *input, size_t N, size_t N1, size_t N2)
 double complex *
 scic_fft(double complex *input, size_t N, size_t N1, size_t N2)
 {
+        double complex **columns, **rows, *output;
         size_t k1, k2;
 
         /* Allocate columnwise matrix */
-        double complex **columns = (double complex**) malloc(sizeof(double complex*) * N1);
+        columns = (double complex**) malloc(sizeof(double complex*) * N1);
 
         for (k1 = 0; k1 < N1; k1++)
         {
@@ -124,7 +127,7 @@ scic_fft(double complex *input, size_t N, size_t N1, size_t N2)
         }
         
         /* Allocate rowwise matrix */
-        double complex **rows = (double complex**) malloc(sizeof(double complex*) * N2);
+        rows = (double complex**) malloc(sizeof(double complex*) * N2);
 
         for (k2 = 0; k2 < N2; k2++)
         {
@@ -162,7 +165,7 @@ scic_fft(double complex *input, size_t N, size_t N1, size_t N2)
         }
         
         /* Flatten into single output */
-        double complex* output = (double complex*) malloc(sizeof(double complex) * N);
+        output = (double complex*) malloc(sizeof(double complex) * N);
 
         for (k1 = 0; k1 < N1; k1++)
         {
