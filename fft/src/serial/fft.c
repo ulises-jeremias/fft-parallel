@@ -149,7 +149,7 @@ scic_fft(double complex *input, size_t N, size_t N1, size_t N2)
                 columns[k1] = scic_dft_naive(columns[k1], N2);
         }
         
-        /* Multiply by the twiddle factors  exp(-2*pi*k1*k2*i/N) and transpose */
+        /* Multiply by the twiddle factors exp(-2*pi*k1*k2*i/N) and transpose */
         for (k1 = 0; k1 < N1; k1++)
         {
                 for (k2 = 0; k2 < N2; k2++)
