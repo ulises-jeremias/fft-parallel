@@ -57,8 +57,8 @@ main()
         run_dtf_tests();
 
         (cml_count_failedtests > 0) ?
-        printf(RED) :
-        printf(GREEN);
+                printf(RED) :
+                printf(GREEN);
 
         printf("\n%d/%d tests passed overall, %d failures\n" RESET "%Lg%s\n",
                cml_count_tests - cml_count_failedtests,
