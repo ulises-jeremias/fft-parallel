@@ -4,6 +4,8 @@
 #include <scic/fft.h>
 #include "include/test.h"
 
+extern double dwalltime();
+
 int cml_count_tests = 0;
 int cml_count_failedtests = 0;
 int cml_count_failures = 0;
@@ -52,7 +54,7 @@ run_dtf_tests()
 int
 main()
 {
-        clock_t cl = clock();
+        double timetick = dwalltime();
 
         run_dtf_tests();
 
@@ -60,12 +62,11 @@ main()
                 printf(RED) :
                 printf(GREEN);
 
-        printf("\n%d/%d tests passed overall, %d failures\n" RESET "%Lg%s\n",
+        printf("\n%d/%d tests passed overall, %d failures\n" RESET "%fs\n",
                cml_count_tests - cml_count_failedtests,
                cml_count_tests,
                cml_count_failures,
-               (long double) (clock()-cl)/CLOCKS_PER_SEC,
-               "s"
+               dwalltime() - timetick
                );
 
         return (cml_count_failedtests > 0);

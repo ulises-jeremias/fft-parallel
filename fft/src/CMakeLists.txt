@@ -4,6 +4,7 @@ INCLUDE_DIRECTORIES(../include)
 SET(FFT_SUBDIRS
 	util
 	serial
+	openmp
 )
 
 IF(NOT CMAKE_BUILD_TYPE)
@@ -36,6 +37,12 @@ IF(FFT_BUILD_STATIC)
 	find_library(SCIC_ERRNO_LIB scic-errno REQUIRED)
 	target_link_libraries(scic-fft-static ${SCIC_ERRNO_LIB})
 
+	find_package(OpenMP REQUIRED)
+	if(OPENMP_FOUND)
+		set(LIBOPENMP "${OpenMP_C_FLAGS}")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+	endif()
+
 	if(CMAKE_COMPILER_IS_GNUC)
 		SET_TARGET_PROPERTIES(scic-fft-static PROPERTIES OUTPUT_NAME "scic-fft")
 	endif()
@@ -58,6 +65,12 @@ IF(FFT_BUILD_SHARED)
 
 	find_library(SCIC_ERRNO_LIB scic-errno REQUIRED)
 	target_link_libraries(scic-fft ${SCIC_ERRNO_LIB})
+
+	find_package(OpenMP REQUIRED)
+	if(OPENMP_FOUND)
+		set(LIBOPENMP "${OpenMP_C_FLAGS}")
+		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+	endif()
 
 	IF(LINUX)
 		# shared library should link to libm
