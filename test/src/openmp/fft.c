@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <scic/fft.h>
-#include "include/test.h"
+#include "../../include/test.h"
 
 extern double dwalltime();
 
@@ -12,40 +12,14 @@ int cml_count_failures = 0;
 
 static double complex
 test_result[32] = {
-#include "data/results.dat"
+#include "../../data/results.dat"
 };
 
 int
 run_fft_tests()
 {
-        CATEGORY_BEGIN(FFT)
+        CATEGORY_BEGIN(OpenMP FFT)
         {
-                TEST_BEGIN(Good-Thomas)
-                {
-                        double complex *input = (double complex *) malloc(sizeof(double complex) * 30);
-                        double complex *result;
-                        size_t i;
-                        
-                        /* Init input */
-                        for (i = 0; i < 30; i++)
-                        {
-                                input[i] = ((double) i) + 0.0 * I;
-                        }
-                        
-                        /* Do FFT */
-                        result = scic_fft_pfa(input, 30, 6, 5);
-                        
-                        printf("\n\n");
-
-                        /* Compare results */
-                        for (i = 0; i < 30; i++)
-                        {
-                                EXPECT_FLOAT_EQ(creal(result[i]), creal(test_result[i]));
-                                EXPECT_FLOAT_EQ(cimag(result[i]), cimag(test_result[i]));
-                        }
-                }
-                TEST_END()
-
                 TEST_BEGIN(Cooley-Tukey)
                 {
                         double complex *input = (double complex *) malloc(sizeof(double complex) * 30);
@@ -59,7 +33,7 @@ run_fft_tests()
                         }
                         
                         /* Do FFT */
-                        result = scic_openmp_fft(input, 30, 6, 5);
+                        result = scic_fft(input, 30, 6, 5);
                         
                         printf("\n\n");
 
