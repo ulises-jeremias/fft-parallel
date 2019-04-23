@@ -37,6 +37,9 @@ IF(FFT_BUILD_STATIC)
 	find_library(SCIC_ERRNO_LIB scic-errno REQUIRED)
 	target_link_libraries(scic-fft-static ${SCIC_ERRNO_LIB})
 
+	find_package(Threads REQUIRED)
+	target_link_libraries(scic-fft-static Threads::Threads)
+
 	find_package(OpenMP REQUIRED)
 	if(OPENMP_FOUND)
 		set(LIBOPENMP "${OpenMP_C_FLAGS}")
@@ -65,6 +68,9 @@ IF(FFT_BUILD_SHARED)
 
 	find_library(SCIC_ERRNO_LIB scic-errno REQUIRED)
 	target_link_libraries(scic-fft ${SCIC_ERRNO_LIB})
+
+	find_package(Threads REQUIRED)
+	target_link_libraries(scic-fft Threads::Threads)
 
 	find_package(OpenMP REQUIRED)
 	if(OPENMP_FOUND)
