@@ -4,7 +4,6 @@ sudo:         true
 
 os:
   - linux
-  - osx
 
 compiler:
   - gcc
