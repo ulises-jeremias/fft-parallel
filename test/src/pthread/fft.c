@@ -18,7 +18,7 @@ test_result[32] = {
 int
 run_fft_tests()
 {
-        CATEGORY_BEGIN(OpenMP FFT)
+        CATEGORY_BEGIN(PThread FFT)
         {
                 TEST_BEGIN(Cooley-Tukey)
                 {
@@ -33,7 +33,7 @@ run_fft_tests()
                         }
                         
                         /* Do FFT */
-                        result = scic_openmp_fft(input, 30, 6, 5, 2);
+                        result = scic_pthread_fft(input, 30, 6, 5, 2);
                         
                         printf("\n\n");
 

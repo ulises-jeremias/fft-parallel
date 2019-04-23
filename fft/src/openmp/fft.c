@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include <omp.h>
 #include <scic/fft.h>
@@ -20,15 +21,20 @@ extern double complex complex_polar(double r, double theta);
  * @param size_t N
  * @param size_t N1
  * @param size_t N2
+ * @param size_t num_threads
  * 
  * @return double complex *
  * 
  */
 double complex *
-scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2)
+scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t num_threads)
 {
         double complex **columns, **rows, *output;
         size_t k1, k2;
+
+        if (num_threads <= omp_get_max_threads()) {
+                omp_set_num_threads(num_threads);
+        }
 
         #pragma omp parallel
         {
