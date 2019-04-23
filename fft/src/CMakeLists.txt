@@ -41,7 +41,7 @@ IF(FFT_BUILD_STATIC)
 	target_link_libraries(scic-fft-static Threads::Threads)
 
 	if(APPLE)
-find_package(OpenMP REPENRED)
+		find_package(OpenMP REQUIRED)
 		if(OPENMP_FOUND)
 			set(LIBOPENMP "${OpenMP_C_FLAGS}")
 			set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
