@@ -16,6 +16,11 @@ INCLUDE(CPack)
 
 ADD_SUBDIRECTORY("fft")
 
+OPTION(FFT_BUILD_BENCHMARKS "Build benchmarks" ON)
+IF(FFT_BUILD_BENCHMARKS)
+	ADD_SUBDIRECTORY("benchmark")
+ENDIF()
+
 OPTION(FFT_BUILD_TESTS "Build unit tests" ON)
 IF(FFT_BUILD_TESTS)
 	enable_testing()

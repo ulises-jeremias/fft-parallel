@@ -32,9 +32,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
         double complex **columns, **rows, *output;
         size_t k1, k2;
 
-        if (num_threads <= omp_get_max_threads()) {
-                omp_set_num_threads(num_threads);
-        }
+        omp_set_num_threads(num_threads);
 
         #pragma omp parallel
         {
@@ -46,7 +44,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
                 {
                         columns[k1] = (double complex*) malloc(sizeof(double complex) * N2);
                 }
-                
+
                 /* Allocate rowwise matrix */
                 rows = (double complex**) malloc(sizeof(double complex*) * N2);
 
@@ -55,7 +53,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
                 {
                         rows[k2] = (double complex*) malloc(sizeof(double complex) * N1);
                 }
-                
+
                 /* Reshape input into N1 columns */
                 #pragma omp for private(k2)
                 for (k1 = 0; k1 < N1; k1++)
@@ -72,7 +70,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
                 {
                         columns[k1] = scic_dft_naive(columns[k1], N2);
                 }
-                
+
                 /* Multiply by the twiddle factors exp(-2*pi*k1*k2*i/N) and transpose */
                 #pragma omp for private(k2)
                 for (k1 = 0; k1 < N1; k1++)
@@ -82,14 +80,14 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
                                 rows[k2][k1] = complex_polar(1, -2*M_PI*k1*k2/N) * columns[k1][k2];
                         }
                 }
-                
+
                 /* Compute N2 DFTs of length N1 using naive method */
                 #pragma omp for schedule(dynamic)
                 for (k2 = 0; k2 < N2; k2++)
                 {
                         rows[k2] = scic_dft_naive(rows[k2], N1);
                 }
-                
+
                 /* Flatten into single output */
                 output = (double complex*) malloc(sizeof(double complex) * N);
 
@@ -108,12 +106,12 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
         {
                 free(columns[k1]);
         }
-        
+
         for (k2 = 0; k2 < N2; k2++)
         {
                 free(rows[k2]);
         }
-        
+
         free(columns);
         free(rows);
 
