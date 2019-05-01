@@ -8,4 +8,4 @@ SET(FFT_MAIN_HEADERS
 add_subdirectory(src)
 
 INSTALL(FILES ${FFT_MAIN_HEADERS} DESTINATION include/scic)
-INSTALL(DIRECTORY include/scic/fft DESTINATION include/scic)
+# INSTALL(DIRECTORY include/scic/fft DESTINATION include/scic)
