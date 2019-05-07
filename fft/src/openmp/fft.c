@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
+#include <sched.h>
 #include <scic/fft.h>
 
 #ifndef M_PI
@@ -55,7 +56,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
 
         #pragma omp parallel
         {
-                // printf("Thread: %d, CPU: %d\n", omp_get_thread_num(), sched_getcpu());
+                printf("Thread: %d, CPU: %d\n", omp_get_thread_num(), sched_getcpu());
 
                 /* Reshape input into N1 columns */
                 #pragma omp for private(k2)

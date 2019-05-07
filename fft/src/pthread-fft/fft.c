@@ -63,12 +63,11 @@ __scic_pthread_compute_fft(void *arg)
 {
         scic_pthread_arg_t *p_arg = (scic_pthread_arg_t *) arg;
 
-        double complex **columns, **rows, *output, *input;
+        double complex **columns, **rows, *input;
         size_t k1, k2, tid, num_threads, N, N1, N2, limit_N1, limit_N2;
 
         columns      = p_arg->columns,
         rows         = p_arg->rows;
-        output       = p_arg->output;
         input        = p_arg->input;
         tid          = p_arg->tid,
         num_threads  = p_arg->num_threads,
