@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
+
+#define _GNU_SOURCE
 #include <sched.h>
+
 #include <scic/fft.h>
 
 #ifndef M_PI
