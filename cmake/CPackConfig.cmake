@@ -34,8 +34,8 @@ ADD_CUSTOM_TARGET(rpm
         --define "_srcrpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
         --define "_rpmdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
         --define "_specdir ${CMAKE_CURRENT_BINARY_DIR}/rpm"
-        ${CMAKE_PROJECT_NAME}.spec
-    SOURCES ${CMAKE_PROJECT_NAME}.spec
+        ${CMAKE_PROJECT_NAME}.spec.in
+    SOURCES ${CMAKE_PROJECT_NAME}.spec.in
     )
 ADD_CUSTOM_TARGET(srpm
     COMMAND make source_tgz
