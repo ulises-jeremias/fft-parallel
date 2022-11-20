@@ -44,8 +44,6 @@ main(int argc, char **argv)
 
         printf("  %-10s %fs\n", "Serial", dwalltime() - timetick);
 
-	timetick = dwalltime();
-	
         timetick = dwalltime();
 
 	result = scic_pthread_fft(input, N, N1, N2, NUM_THREADS);
