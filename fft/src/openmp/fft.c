@@ -37,7 +37,6 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
         size_t k1, k2;
 
         omp_set_num_threads(num_threads);
-        // printf("%d, %d\n", omp_get_max_threads(), omp_get_num_threads());
 
         /* Allocate columnwise matrix */
         columns = (double complex**) malloc(sizeof(double complex*) * N1);
@@ -59,8 +58,6 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
 
         #pragma omp parallel
         {
-                printf("Thread: %d, CPU: %d\n", omp_get_thread_num(), sched_getcpu());
-
                 /* Reshape input into N1 columns */
                 #pragma omp for private(k2)
                 for (k1 = 0; k1 < N1; k1++)
@@ -96,7 +93,6 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
                 }
 
                 /* Flatten into single output */
-
                 #pragma omp for private(k2)
                 for (k1 = 0; k1 < N1; k1++)
                 {
