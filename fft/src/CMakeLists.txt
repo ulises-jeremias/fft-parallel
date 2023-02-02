@@ -42,12 +42,7 @@ IF(FFT_BUILD_STATIC)
 	target_link_libraries(scic-fft-static Threads::Threads)
 
 	find_package(OpenMP REQUIRED)
-	if(OPENMP_FOUND)
-		set(LIBOPENMP "${OpenMP_C_FLAGS}")
-		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-	endif()
-	target_link_libraries(scic-fft-static ${LIBOPENMP})
+	target_link_libraries(scic-fft-static OpenMP::OpenMP_C)
 
 	if(CMAKE_COMPILER_IS_GNUC)
 		SET_TARGET_PROPERTIES(scic-fft-static PROPERTIES OUTPUT_NAME "scic-fft")
@@ -76,12 +71,7 @@ IF(FFT_BUILD_SHARED)
 	target_link_libraries(scic-fft Threads::Threads)
 
 	find_package(OpenMP REQUIRED)
-	if(OPENMP_FOUND)
-		set(LIBOPENMP "${OpenMP_C_FLAGS}")
-		set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-		set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-	endif()
-	target_link_libraries(scic-fft ${LIBOPENMP})
+	target_link_libraries(scic-fft OpenMP::OpenMP_C)
 
 	IF(LINUX)
 		# shared library should link to libm
