@@ -11,6 +11,6 @@ if [ ! -f $file ]; then
     chmod +x $file
 fi
 
-find . -type f | grep -v -e ".txt" -e ".git" -e "build/" -e "install/" -e "test/" | xargs $file -f --no-tree --no-summary --terse --show-types --subjective --ignore SPDX_LICENSE_TAG,COMPLEX_MACRO,LEADING_SPACE,CODE_INDENT,MACRO_WITH_FLOW_CONTROL,NEW_TYPEDEFS
+find . -type f | grep -v -e ".txt" -e ".git" -e "build/" -e "install/" -e "test/" -e "doc/" -e ".vscode"/ | xargs $file --fix-inplace -f --no-tree --no-summary --terse --show-types --subjective --ignore SPDX_LICENSE_TAG,COMPLEX_MACRO,LEADING_SPACE,CODE_INDENT,MACRO_WITH_FLOW_CONTROL,NEW_TYPEDEFS
 
 popd

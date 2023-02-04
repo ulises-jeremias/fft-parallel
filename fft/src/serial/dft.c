@@ -19,12 +19,12 @@ scic_dft_naive(double complex *x, size_t N)
     {
         X[k] = 0.0 + 0.0 * I;
         im_k = im_base * k;
-        
+
         for (n = 0; n < N; n++)
         {
             X[k] += x[n] * complex_polar(1.0, im_k * n);
         }
     }
-    
+
     return X;
 }
