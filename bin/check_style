@@ -14,6 +14,8 @@
 ROOT="$(realpath "$(dirname "$0")"/..)"
 BIN_DIR="${ROOT}/bin"
 
+. "${ROOT}"/bin/easy-options/easyoptions.sh
+
 URL=https://raw.githubusercontent.com/torvalds/linux/master/scripts/checkpatch.pl
 CHECKPATCH="${BIN_DIR}"/checkpatch.pl
 
