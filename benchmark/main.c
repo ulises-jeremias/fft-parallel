@@ -1,11 +1,11 @@
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <omp.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <time.h>
+ #include <omp.h>
 
-#include <sparse.h>
-#include <scic/fft.h>
+ #include <sparse.h>
+ #include <scic/fft.h>
 
 extern double dwalltime(void);
 
@@ -16,7 +16,7 @@ main(int argc, char **argv)
 	double timetick;
 	char *N2_flag;
 
-        double complex *input;
+	double complex *input;
 	double complex *result;
 
 	N = atoi(sparse_flag("N", "10000", argc, argv));
@@ -25,7 +25,7 @@ main(int argc, char **argv)
 	N2 = strcmp(N2_flag, "undefined") == 0 ? N / N1 : (size_t)atoi(N2_flag);
 	NUM_THREADS = atoi(sparse_flag("threads", "2", argc, argv));
 
-        input = (double complex *) malloc(sizeof(double complex) * N);
+	input = (double complex *) malloc(sizeof(double complex) * N);
 
 	printf("N: %ld - N1: %ld - N2: %ld - Threads: %ld\n\n", N, N1, N2, NUM_THREADS);
 
@@ -41,21 +41,21 @@ main(int argc, char **argv)
 
 	result = scic_fft(input, N, N1, N2);
 
-        printf("  %-10s %fs\n", "Serial", dwalltime() - timetick);
+	printf("  %-10s %fs\n", "Serial", dwalltime() - timetick);
 
-        timetick = dwalltime();
+	timetick = dwalltime();
 
 	result = scic_pthread_fft(input, N, N1, N2, NUM_THREADS);
 
-        printf("  %-10s %fs\n", "Pthread", dwalltime() - timetick);
+	printf("  %-10s %fs\n", "Pthread", dwalltime() - timetick);
 
 	timetick = dwalltime();
 
 	result = scic_openmp_fft(input, N, N1, N2, NUM_THREADS);
 
-        printf("  %-10s %fs\n", "OpenMp", dwalltime() - timetick);
+	printf("  %-10s %fs\n", "OpenMp", dwalltime() - timetick);
 
 	(void)result;
 
-        return 0;
+	return 0;
 }

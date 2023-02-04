@@ -1,16 +1,25 @@
 #!/bin/bash
 
+## Copyright (C) 2019-2022 Ulises Jeremias Cornejo Fandos
+## Licensed under MIT.
+##
+## Check full documentation at: https://github.com/ulises-jeremias/dotCHECKPATCHs/wiki
+##
+##     @script.name [OPTION] ARGUMENTS...
+##
+## Options:
+##     -h, --help                            Help.
+##
+
+ROOT="$(realpath "$(dirname "$0")"/..)"
+BIN_DIR="${ROOT}/bin"
+
 URL=https://raw.githubusercontent.com/torvalds/linux/master/scripts/checkpatch.pl
-file=./bin/checkpatch.pl
+CHECKPATCH="${BIN_DIR}"/checkpatch.pl
 
-pushd `pwd`
-
-cd ..
-if [ ! -f $file ]; then
-    curl $URL -o $file
-    chmod +x $file
+if [ ! -f "$CHECKPATCH" ]; then
+    curl $URL -o "$CHECKPATCH"
+    chmod +x "$CHECKPATCH"
 fi
 
-find . -type f | grep -v -e ".txt" -e ".git" -e "build/" -e "install/" -e "test/" -e "doc/" -e ".vscode"/ | xargs $file --fix-inplace -f --no-tree --no-summary --terse --show-types --subjective --ignore SPDX_LICENSE_TAG,COMPLEX_MACRO,LEADING_SPACE,CODE_INDENT,MACRO_WITH_FLOW_CONTROL,NEW_TYPEDEFS
-
-popd
+find . -type f -name "*.c" -o -name "*.h" | grep -v -e "third_party" | xargs "$CHECKPATCH" --fix-inplace -f --no-tree --no-summary --terse --show-types --strict
