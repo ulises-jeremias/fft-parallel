@@ -24,4 +24,4 @@ if [ ! -f "$CHECKPATCH" ]; then
     chmod +x "$CHECKPATCH"
 fi
 
-find . -type f -name "*.c" -o -name "*.h" | grep -v -e "third_party" | xargs "$CHECKPATCH" --fix-inplace -f --no-tree --no-summary --terse --show-types --strict
+find . -type f -name "*.c" -o -name "*.h" | grep -v -e "third_party/" -e "build/" -e "test/" | xargs "$CHECKPATCH" --fix-inplace -f --no-tree --no-summary --terse --show-types --strict

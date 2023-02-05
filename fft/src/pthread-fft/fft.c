@@ -65,16 +65,16 @@ __scic_pthread_compute_fft(void *arg)
 	double complex **columns, **rows, *input;
 	size_t k1, k2, tid, num_threads, N, N1, N2, limit_N1, limit_N2;
 
-	columns      = p_arg->columns,
+	columns      = p_arg->columns;
 	rows         = p_arg->rows;
 	input        = p_arg->input;
-	tid          = p_arg->tid,
-	num_threads  = p_arg->num_threads,
+	tid          = p_arg->tid;
+	num_threads  = p_arg->num_threads;
 	N            = p_arg->N;
-	N1           = p_arg->N1,
+	N1           = p_arg->N1;
 	N2           = p_arg->N2;
 
-	limit_N1 = (1 + tid) * N1 / num_threads,
+	limit_N1 = (1 + tid) * N1 / num_threads;
 	limit_N2 = (1 + tid) * N2 / num_threads;
 
 	/* Reshape input into N1 columns */
