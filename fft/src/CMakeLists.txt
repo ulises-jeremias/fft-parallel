@@ -32,6 +32,7 @@ endforeach()
 
 OPTION(FFT_BUILD_STATIC "Build static library" ON)
 IF(FFT_BUILD_STATIC)
+
 	ADD_LIBRARY(scic-fft-static STATIC ${FFT_LIB_SRCS})
 	SET_TARGET_PROPERTIES(scic-fft-static PROPERTIES LINKER_LANGUAGE C)
 

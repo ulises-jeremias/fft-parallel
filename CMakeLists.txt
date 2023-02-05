@@ -6,6 +6,8 @@ PROJECT(fft
 	LANGUAGES C
 VERSION ${FFT_VERSION})
 
+# TODO: Figure out a way to do this without hardcoding the flags
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp")
 
 INCLUDE(${CMAKE_SOURCE_DIR}/cmake/CPackConfig.cmake)
 CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/fft.spec.in" "${CMAKE_CURRENT_BINARY_DIR}/fft.spec" @ONLY IMMEDIATE)

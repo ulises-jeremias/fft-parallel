@@ -5,7 +5,7 @@
  #include <stdio.h>
 
  #ifndef CML_FLT_EPSILON
-	#define CML_FLT_EPSILON 1e - 5
+	#define CML_FLT_EPSILON (1e-5)
  #endif
 
 extern int cml_count_tests;
