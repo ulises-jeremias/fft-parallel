@@ -22,9 +22,12 @@ print_log(const char *s, ...)
 {
 	va_list args;
 
-	va_start(args, s);
-	vfprintf(log_file, s, args);
-	va_end(args);
+        va_start(args, s);
+
+        vfprintf(log_file, s, args);
+        fflush(log_file);
+
+        va_end(args);
 }
 
 void init_log(const char *filename, const char *mode)
