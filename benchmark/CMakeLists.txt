@@ -1,4 +1,5 @@
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/fft/include)
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/benchmark/include)
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/third_party/simple-parse/src)
 
 INCLUDE(../cmake/CMakeBuildFlags.cmake)
