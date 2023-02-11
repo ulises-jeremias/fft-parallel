@@ -30,7 +30,8 @@ print_log(const char *s, ...)
         va_end(args);
 }
 
-void init_log(const char *filename, const char *mode)
+void
+init_log(const char *filename, const char *mode)
 {
 	log_file = fopen(filename, mode);
 	print_log("Log file path: %s\n", filename);
