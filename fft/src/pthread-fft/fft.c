@@ -63,7 +63,7 @@ __scic_pthread_compute_fft(void *arg)
 	scic_pthread_arg_t *p_arg = (scic_pthread_arg_t *)arg;
 
 	double complex **columns, **rows, *input;
-	size_t k1, k2, tid, num_threads, N, N1, N2, limit_N1, limit_N2;
+	size_t k1, k2, tid, num_threads, N, N1, N2, start_N1, start_N2, limit_N1, limit_N2;
 
 	columns      = p_arg->columns;
 	rows         = p_arg->rows;
@@ -74,11 +74,13 @@ __scic_pthread_compute_fft(void *arg)
 	N1           = p_arg->N1;
 	N2           = p_arg->N2;
 
+        start_N1 = tid * N1 / num_threads;
+        start_N2 = tid * N2 / num_threads;
 	limit_N1 = (1 + tid) * N1 / num_threads;
 	limit_N2 = (1 + tid) * N2 / num_threads;
 
 	/* Reshape input into N1 columns */
-	for (k1 = tid * N1 / num_threads; k1 < limit_N1; k1++)
+	for (k1 = start_N1; k1 < limit_N1; k1++)
 	{
 		for (k2 = 0; k2 < N2; k2++)
 		{
@@ -87,13 +89,13 @@ __scic_pthread_compute_fft(void *arg)
 	}
 
 	/* Compute N1 DFTs of length N2 using naive method */
-	for (k1 = tid * N1 / num_threads; k1 < limit_N1; k1++)
+	for (k1 = start_N1; k1 < limit_N1; k1++)
 	{
 		columns[k1] = scic_dft_naive(columns[k1], N2);
 	}
 
 	/* Multiply by the twiddle factors exp(-2*pi*k1*k2*i/N) and transpose */
-	for (k1 = tid * N1 / num_threads; k1 < limit_N1; k1++)
+	for (k1 = start_N1; k1 < limit_N1; k1++)
 	{
 		for (k2 = 0; k2 < N2; k2++)
 		{
@@ -104,8 +106,8 @@ __scic_pthread_compute_fft(void *arg)
 	pthread_barrier_wait(p_arg->barrier);
 
 	/* Compute N2 DFTs of length N1 using naive method */
-	for (k2 = tid * N2 / num_threads; k2 < limit_N2; k2++)
-	{
+        for (k2 = start_N2; k2 < limit_N2; k2++)
+        {
 		rows[k2] = scic_dft_naive(rows[k2], N1);
 	}
 
