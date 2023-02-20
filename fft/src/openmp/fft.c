@@ -66,7 +66,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
 		}
 
 		/* Compute N1 DFTs of length N2 using naive method */
-		#pragma omp for schedule(dynamic)
+		#pragma omp for schedule(static)
 		for (k1 = 0; k1 < N1; k1++)
 		{
 			columns[k1] = scic_dft_naive(columns[k1], N2);
@@ -83,7 +83,7 @@ scic_openmp_fft(double complex *input, size_t N, size_t N1, size_t N2, size_t nu
 		}
 
 		/* Compute N2 DFTs of length N1 using naive method */
-		#pragma omp for schedule(dynamic)
+		#pragma omp for schedule(static)
 		for (k2 = 0; k2 < N2; k2++)
 		{
 			rows[k2] = scic_dft_naive(rows[k2], N1);
