@@ -64,7 +64,7 @@ void
 run_pthread_benchmark(size_t N, size_t N1, size_t N2, size_t NUM_THREADS, size_t TIMES)
 {
 	size_t i;
-	double timetick, parallel_sum = 0.0, parallel_avg, parallel_std_dev, speedup, efficiency, overhead;
+	double timetick, parallel_sum = 0.0, parallel_avg, parallel_std_dev, speedup, efficiency, total_overhead;
 
 	double complex *input;
 	double complex *result;
@@ -94,9 +94,9 @@ run_pthread_benchmark(size_t N, size_t N1, size_t N2, size_t NUM_THREADS, size_t
 
 	speedup = serial_avgs[input_size_idx] / parallel_avg;
 	efficiency = speedup / NUM_THREADS;
-	overhead = (1 - efficiency) * 100;
+	total_overhead = NUM_THREADS * parallel_avg - serial_avgs[input_size_idx];
 
-	print_log("Pthread: %f (+/-) %f\nSpeedup: %f\nEfficiency: %f\nOverhead: %f\n", parallel_avg, parallel_std_dev, speedup, efficiency, overhead);
+	print_log("Pthread: %f (+/-) %f\nSpeedup: %f\nEfficiency: %f\nOverhead: %f\n", parallel_avg, parallel_std_dev, speedup, efficiency, total_overhead);
 
 	(void)result;
 
@@ -107,7 +107,7 @@ void
 run_openmp_benchmark(size_t N, size_t N1, size_t N2, size_t NUM_THREADS, size_t TIMES)
 {
 	size_t i;
-	double timetick, parallel_sum = 0.0, parallel_avg, parallel_std_dev, speedup, efficiency, overhead;
+	double timetick, parallel_sum = 0.0, parallel_avg, parallel_std_dev, speedup, efficiency, total_overhead;
 	double complex *input;
 	double complex *result;
 
@@ -136,9 +136,9 @@ run_openmp_benchmark(size_t N, size_t N1, size_t N2, size_t NUM_THREADS, size_t 
 
 	speedup = serial_avgs[input_size_idx] / parallel_avg;
 	efficiency = speedup / NUM_THREADS;
-	overhead = (1 - efficiency) * 100;
+        total_overhead = NUM_THREADS * parallel_avg - serial_avgs[input_size_idx];
 
-	print_log("OpenMP: %f (+/-) %f\nSpeedup: %f\nEfficiency: %f\nOverhead: %f\n", parallel_avg, parallel_std_dev, speedup, efficiency, overhead);
+        print_log("OpenMP: %f (+/-) %f\nSpeedup: %f\nEfficiency: %f\nOverhead: %f\n", parallel_avg, parallel_std_dev, speedup, efficiency, total_overhead);
 
 	(void)result;
 
