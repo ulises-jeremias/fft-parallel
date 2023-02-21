@@ -12,6 +12,7 @@ This is a parallel implementation of the Fast Fourier Transform (FFT) algorithm.
   - [Using the library](#using-the-library)
     - [Install Dependencies](#install-dependencies)
   - [Running Tests](#running-tests)
+  - [Running Benchmarks](#running-benchmarks)
   - [Build Options](#build-options)
 
 ## Using the library
@@ -77,6 +78,21 @@ make && ctest
 ```
 
 [_Build Options_](#build-options)
+
+## Running Benchmarks
+
+To run the benchmark suite from a command prompt, using a Makefile-like generator, execute the following:
+
+```sh
+git clone https://github.com/ulises-jeremias/fft-parallel.git
+cd fft-parallel
+mkdir build
+cd build
+cmake .. <build options>
+make
+./build/benchmark/benchmark_scic_fft_static --times=10
+# or ./build/benchmark/benchmark_scic_fft_shared --times=10
+```
 
 ## Build Options
 
